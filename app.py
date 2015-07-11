@@ -1,6 +1,6 @@
+import os
 from flask import Flask
 from bls_reader.bls_reader import bls_reader
-import os
 port = int(os.environ.get('Port', 5000))
 
 app = Flask(__name__)
