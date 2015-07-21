@@ -6,6 +6,10 @@ port = int(os.environ.get('Port', 5000))
 app = Flask(__name__)
 
 @app.route("/")
+def placeholder():
+	return "welcome to #nfpguess.es - more is comming soon."
+
+@app.route("/demo")
 def nfp():
 	jobs = bls_reader(6, 2015)
 	return "Welcome to #nfpguesses. The most recent jobs number is {:,}.".format(jobs)
