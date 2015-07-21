@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def placeholder():
-	return "welcome to #nfpguess.es - more is comming soon."
+	return "Transmission of material in #nfpguess.es is embargoed."
 
 @app.route("/demo")
 def nfp():
