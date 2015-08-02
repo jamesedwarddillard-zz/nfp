@@ -16,7 +16,12 @@ def nfp():
 	mos, year = current_report()
 	month = written_months(mos)
 	jobs = bls_reader(mos, year)
-	return "Welcome to #nfpguesses. The jobs number for {}, {} is {:,}.".format(month, year, jobs)
+	sign = ''
+	if jobs < 0:
+		sign = '-'
+	else:
+		sign = '+'
+	return "The jobs number for the most recent report ({}, {}) is {}{:,}. - #nfpguess.es".format(month, year, sign, jobs)
 
 if __name__ == "__main__":
 	app.run()
