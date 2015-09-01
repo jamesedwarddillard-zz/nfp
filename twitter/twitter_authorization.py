@@ -1,23 +1,15 @@
-import urlparse
-
 import requests
-from requests_oauthlib import OAuth1
+from requests_oauthlib import OAuth2Session
+from oauthlib.oauth2 import BackendApplicationClient
 
 from twitter_secret import CLIENT_KEY, CLIENT_SECRET
 from twitter_urls import *
 
-def get_request_token():
-	"""Get a token allowing us to request user authorization"""
-	oauth = OAuth1(CLIENT_KEY, client_secret = CLIENT_SECRET)
-	response = requests.post(REQUEST_TOKEN_URL, auth=oauth)
+def get_access_token():
+	client = BackendApplicationClient(client_id = CLIENT_KEY)
+	oauth = OAuth2Session(client=client)
+	token = oauth.fetch_token(token_url= REQUEST_TOKEN_URL, client_id = CLIENT_KEY, 
+	client_secret=CLIENT_SECRET)
+	return token['access_token']
 
-	credentials = urlparse.parse_qs(response.content)
-	request_token = credentials.get('oauth_token')[0]
-	request_secret = credentials.get('oauth_token_secret')[0]
-	return request_token, request_secret
-
-
-def authorize():
-	"""A complete Oauth authentication flow"""
-	request_token, request_secret = get_request_token()
-	print request_token, request_secret
+print get_access_token()
