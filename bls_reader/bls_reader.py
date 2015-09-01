@@ -2,7 +2,8 @@
 and returns the jobs report data in an organized manner"""
 import requests
 import json
-from bls_api import bls_api_url, bls_api_headers, bls_api_series_id, bls_key
+from bls_api import bls_api_url, bls_api_headers, bls_api_series_id
+from bls_key import bls_key
 from datetime import date
 from bls_report_classes import bls_total_jobs
 
