@@ -11,5 +11,3 @@ def get_access_token():
 	token = oauth.fetch_token(token_url= REQUEST_TOKEN_URL, client_id = CLIENT_KEY, 
 	client_secret=CLIENT_SECRET)
 	return token['access_token']
-
-print get_access_token()
