@@ -1,2 +1,4 @@
 *.pyc
 env
+bls_key.py
+twitter_secret.py

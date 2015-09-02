@@ -9,6 +9,9 @@ def single_response_parser(statuses):
 	created_at = statuses['created_at']
 	return [tweet, user, created_at]
 
+def response_generator():
+	pass
+
 def main():
 	statuses, number_of_tweets = nfp_tweets()
 	print number_of_tweets
@@ -16,7 +19,7 @@ def main():
 	for i in range(0, number_of_tweets):
 		status = statuses[i]
 		entry = single_response_parser(status)
-		print entry
+		return entry[0], entry[1]
 
 
 if __name__ == '__main__':

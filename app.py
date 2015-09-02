@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def placeholder():
-	return "Transmission of material in #nfpguess.es is embargoed."
+	return "Transmission of material in #nfpguesses is embargoed."
 
 @app.route("/current")
 def nfp():
@@ -21,7 +21,8 @@ def nfp():
 		sign = '-'
 	else:
 		sign = '+'
-	return "The jobs number for the most recent report ({}, {}) is {}{:,}. - #nfpguess.es".format(month, year, sign, jobs)
+	return "The jobs number for the most recent report ({}, {}) is {}{:,}. - #nfpguesses".format(month, year, sign, jobs)
+	
 
 if __name__ == "__main__":
 	app.run()
