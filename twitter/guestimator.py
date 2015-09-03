@@ -10,11 +10,12 @@ def single_response_parser(statuses):
 	return [tweet, user, created_at]
 
 def response_generator():
-	pass
+	statuses, number_of_tweets = nfp_tweets()
+	return statuses, number_of_tweets
 
 def main():
 	statuses, number_of_tweets = nfp_tweets()
-	print number_of_tweets
+	print "There have been {} #nfpguesses".format(number_of_tweets)
 	guesses = []
 	for i in range(0, number_of_tweets):
 		status = statuses[i]
