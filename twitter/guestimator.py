@@ -7,21 +7,27 @@ def single_response_parser(statuses):
 	tweet = statuses['text']
 	user = statuses['user']['screen_name']
 	created_at = statuses['created_at']
-	return [tweet, user, created_at]
+	guess = "foo"
+	entry = {
+	"tweet": tweet,
+	"user": user,
+	"created_at": created_at,
+	"guess": guess
+	}
+	return entry
 
-def response_generator():
-	statuses, number_of_tweets = nfp_tweets()
-	return statuses, number_of_tweets
+def response_generator(statuses, number_of_tweets):
+	entry_list = []
+	for i in range(0, number_of_tweets):
+		entry = single_response_parser(statuses[i])
+		entry_list.append(entry)
+	return entry_list
 
 def main():
 	statuses, number_of_tweets = nfp_tweets()
-	print "There have been {} #nfpguesses".format(number_of_tweets)
-	guesses = []
-	for i in range(0, number_of_tweets):
-		status = statuses[i]
-		entry = single_response_parser(status)
-		return entry[0], entry[1]
-
+	entry_list = response_generator(statuses, number_of_tweets)
+	for entry in entry_list:
+		print entry['tweet'], entry['user'], entry ['guess']
 
 if __name__ == '__main__':
 	main()

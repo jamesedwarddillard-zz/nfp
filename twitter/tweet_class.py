@@ -5,3 +5,4 @@ class Entries(object):
 		self.tweet = tweet
 		self.user = user
 		self.utc_time = utc_time
+		self.guess = 'foo'
