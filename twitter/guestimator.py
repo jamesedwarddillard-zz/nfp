@@ -1,7 +1,23 @@
 """ turns twitter searches into guesses"""
+import twitter_authorization
+from twitter_urls import *
+import requests
+import json
 
-from twitter_search import nfp_tweets
-from tweet_class import Entries
+
+def twitter_search(hashtag, max_id):
+	token = twitter_authorization.get_access_token()
+	bearer_token = 'Bearer %s' % token
+	payload = {'q': hashtag, 'count': 100, 'max_id': max_id}
+	headers = {'Authorization': bearer_token}
+	response = requests.get(SEARCH_ENDPOINT, params = payload, headers=headers)
+	response_json = json.loads(response.text)
+	return response_json
+
+def twitter_statues(response):
+	#strips out metadata from twitter search
+	statuses = response['statuses']
+	return statuses
 
 def single_response_parser(statuses):
 	tweet = statuses['text']
@@ -21,19 +37,38 @@ def single_response_parser(statuses):
 def guess_generator(tweet_text):
 	return 'no guess!!'
 
-def response_generator(statuses, number_of_tweets):
-	entry_list = []
-	for i in range(0, number_of_tweets):
+def response_generator(entry_list, statuses):
+	for i in range(0, len(statuses)):
 		entry = single_response_parser(statuses[i])
 		entry_list.append(entry)
 	return entry_list
 
+def response_aggregator(hashtag, initial_max_id):
+	entry_list = []
+
+	#perform the first search
+	response = twitter_search(hashtag, initial_max_id)
+	statuses = twitter_statues(response)
+	last_search_count = len(statuses)
+
+	# organize the results
+	response_generator(entry_list, statuses)
+
+	while True:
+		new_max_id = entry_list[-1]['id_str']
+		response = twitter_search(hashtag, new_max_id)
+		statuses = twitter_statues(response)
+		response_generator(entry_list, statuses)
+		last_search_count = len(statuses)
+		if last_search_count < 100:
+			break
+	return entry_list
+ 
 def main():
-	statuses, number_of_tweets = nfp_tweets('burgers park', '')
-	entry_list = response_generator(statuses, number_of_tweets)
+	entry_list = response_aggregator('#nfpguesses', '')
+	print '{} entries today'.format(len(entry_list))
 	for entry in entry_list:
-		print entry['tweet'], entry['user'], entry ['guess']
-	print number_of_tweets
+		print 'User {} says: {}'.format(entry['user'], entry['tweet'])
 
 if __name__ == '__main__':
 	main()
