@@ -7,14 +7,19 @@ def single_response_parser(statuses):
 	tweet = statuses['text']
 	user = statuses['user']['screen_name']
 	created_at = statuses['created_at']
-	guess = "foo"
+	guess = guess_generator(tweet)
+	id_str = statuses['id_str'] #twitter id string used to define the max id
 	entry = {
 	"tweet": tweet,
 	"user": user,
 	"created_at": created_at,
-	"guess": guess
+	"guess": guess,
+	'id_str': id_str
 	}
 	return entry
+
+def guess_generator(tweet_text):
+	return 'no guess!!'
 
 def response_generator(statuses, number_of_tweets):
 	entry_list = []
@@ -24,10 +29,11 @@ def response_generator(statuses, number_of_tweets):
 	return entry_list
 
 def main():
-	statuses, number_of_tweets = nfp_tweets()
+	statuses, number_of_tweets = nfp_tweets('burgers park', '')
 	entry_list = response_generator(statuses, number_of_tweets)
 	for entry in entry_list:
 		print entry['tweet'], entry['user'], entry ['guess']
+	print number_of_tweets
 
 if __name__ == '__main__':
 	main()
