@@ -3,6 +3,7 @@ import twitter_authorization
 from twitter_urls import *
 import requests
 import json
+from guess_logic import guess_generator
 
 
 def twitter_search(hashtag, max_id):
@@ -34,8 +35,6 @@ def single_response_parser(statuses):
 	}
 	return entry
 
-def guess_generator(tweet_text):
-	return 'no guess!!'
 
 def response_generator(entry_list, statuses):
 	for i in range(0, len(statuses)):
