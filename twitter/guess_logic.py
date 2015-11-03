@@ -30,7 +30,11 @@ def full_number_find(tweet_text):
 	return searchObj
 
 def full_number_transform(tweet_text):
-	return "found it"
+	searchObj = full_number_find(tweet_text)
+	match = searchObj.group()
+	number = re.sub(r'\D', "", match)
+	guess = int(number)
+	return guess
 
 def main():
 	print guess_finder(test_tweet)
