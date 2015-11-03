@@ -1,7 +1,7 @@
 """ logic for reading tweets and making them guesses """
 import re
 
-test_tweet = "170,000"
+test_tweet = "-180K"
 
 def guess_finder(tweet_text):
 	best_guess = ''
@@ -13,7 +13,8 @@ def guess_finder(tweet_text):
 		best_guess = guess
 	else:
 		best_guess = "Sorry, we didn't get that"
-	return best_guess
+	negative = positive_or_negative(tweet_text)
+	return best_guess * negative
 
 def numb_k_find(tweet_text):
 	searchObj = re.search('[0-9]*[K|k]', tweet_text, flags = 0)
@@ -30,7 +31,7 @@ def numb_k_transform(tweet_text):
 	return guess
 
 def full_number_find(tweet_text):
-	searchObj = re.search('[0-9]*[,]?[0-9]*', tweet_text, flags = 0)
+	searchObj = re.search('[0-9]*[,]?[0-9]*[,]?[0-9]*[,]?[0-9]*', tweet_text, flags = 0)
 	return searchObj
 
 def full_number_transform(tweet_text):
@@ -40,8 +41,11 @@ def full_number_transform(tweet_text):
 	guess = int(number)
 	return guess
 
-def main():
-	print guess_finder(test_tweet)
+def positive_or_negative(tweet_text):
+	tweet_text = tweet_text.lower()
+	negative = re.search('[lost]|[loses]|[-]', tweet_text, flags = 0)
+	if negative:
+		return -1
+	else:
+		return 1
 
-if __name__ == '__main__':
-	main()
