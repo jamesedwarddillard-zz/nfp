@@ -31,11 +31,7 @@ def guesses():
 	entry_list = response_aggregator('#nfpguesses', '')
 	guesses = len(entry_list)
 	first_entry = entry_list[0]
-	user = first_entry['user']
-	guess = first_entry['guess']
-	tweet = first_entry['tweet']
-	time = first_entry['created_at']
-	return render_template('guesses.html', user = user, guess = guess, time = time, tweet = tweet, guesses = guesses)
+	return render_template('guesses.html', first_entry = first_entry)
 
 
 if __name__ == "__main__":

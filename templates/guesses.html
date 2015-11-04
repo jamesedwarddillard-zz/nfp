@@ -6,6 +6,16 @@
 {% else %}
 	<h2>{{guesses}} guesses in the last 7 days</h2>
 {% endif %}
-	 <p>{{user}}: {{guess}} from "{{tweet}}"" at {{time}}</p>
+
+<table>
+	
+{% for key, value in first_entry.iteritems() %}
+   <tr>
+        <th> {{ key }}: </th>
+        <td> {{ value }} </td>
+   </tr>
+{% endfor %}
+</table>
+
 
 
