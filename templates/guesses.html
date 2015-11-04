@@ -1,7 +1,11 @@
 <title>#nfpguess.es</title>
 
 <h1>Non Farm Payroll Guesses </h1>
-
-  <p>{{user}}: {{guess}} from {{tweet}} at {{time}}</p>
+{% if guesses == 1%}
+	<h2>{{guesses}} guess in the last 7 days</h2>
+{% else %}
+	<h2>{{guesses}} guesses in the last 7 days</h2>
+{% endif %}
+	 <p>{{user}}: {{guess}} from "{{tweet}}"" at {{time}}</p>
 
 
