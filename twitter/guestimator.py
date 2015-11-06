@@ -67,7 +67,8 @@ def main():
 	entry_list = response_aggregator('#nfpguesses', '')
 	print '{} entries today'.format(len(entry_list))
 	for entry in entry_list:
-		print 'User {} says: {}. Guess = {}'.format(entry['user'], entry['tweet'], entry['guess'])
+		print 'User {} says: {}. Guess = {}'.format(entry['user'], entry['tweet']
+			.encode('utf-8'), entry['guess'])
 
 if __name__ == '__main__':
 	main()
